@@ -19,6 +19,8 @@
 
 <div id='map'></div>
 <script>
+var url = 'https://raw.githubusercontent.com/cwlawlis802/oti-global/gh-pages/global-oti.geojson';
+
 var map = L.mapbox.map('map', 'chadlawlis.i60g616l')
     .setView([10, 0], 3);
 
@@ -40,10 +42,10 @@ function load() {
   });
 }
 
-var localLoad = function (url) {
-	var geojsonLayer = new L.GeoJSON.AJAX(url);
-	geojsonLayer.addTo(map);
-}
+//var localLoad = function (url) {
+//	var geojsonLayer = new L.GeoJSON.AJAX(url);
+//	geojsonLayer.addTo(map);
+//}
 
 $(load);
 
