@@ -25,33 +25,30 @@
 var map = L.mapbox.map('map', 'chadlawlis.i60g616l')
     .setView([10, 0], 3);
 
-var usLayer = omnivore.topojson('https://raw.githubusercontent.com/cwlawlis802/oti-global/gh-pages/global-oti-topo.json')
-    .addTo(map);
-
-//function load() {
+function load() {
   // Fetch just the contents of a .geojson file from GitHub by passing
   // `application/vnd.github.v3.raw` to the Accept header
   // As with any other AJAX request, this technique is subject to the Same Origin Policy:
   // http://en.wikipedia.org/wiki/Same_origin_policy the server delivering the request should support CORS.
-  //$.ajax({
-    //headers: {
-      //'Accept': 'application/vnd.github.v3.raw'
-    //},
-    //dataType: 'json',
-    //url: 'https://raw.githubusercontent.com/cwlawlis802/oti-global/gh-pages/global-oti.geojson',
-    //success: function(geojson) {
+  $.ajax({
+    headers: {
+      'Accept': 'application/vnd.github.v3.raw'
+    },
+    dataType: 'json',
+    url: 'https://raw.githubusercontent.com/cwlawlis802/oti-global/gh-pages/global-oti.geojson',
+    success: function(geojson) {
         // On success add fetched data to the map.
-        //L.mapbox.featureLayer(geojson).addTo(map);
-    //}
-  //});
-//}
+        L.mapbox.featureLayer(geojson).addTo(map);
+    }
+  });
+}
 
 //var localLoad = function (url) {
 //	var geojsonLayer = new L.GeoJSON.AJAX(url);
 //	geojsonLayer.addTo(map);
 //}
 
-//$(load);
+$(load);
 
 //localLoad('https://raw.githubusercontent.com/cwlawlis802/oti-global/gh-pages/global-oti.geojson');
 
