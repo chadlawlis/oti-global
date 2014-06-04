@@ -20,7 +20,7 @@
 
 <div id='map'></div>
 <script>
-//var url = 'https://raw.githubusercontent.com/cwlawlis802/oti-global/gh-pages/global-oti.geojson';
+var url = 'https://api.github.com/repos/cwlawlis802/oti-global/contents/global-oti-cut-topo.json';
 
 var map = L.mapbox.map('map', 'chadlawlis.i60g616l')
     .setView([10, 0], 3);
@@ -35,7 +35,7 @@ function load() {
       'Accept': 'application/vnd.github.v3.raw'
     },
     dataType: 'json',
-    url: 'https://api.github.com/repos/cwlawlis802/oti-global/contents/global-oti-cut-topo.json',
+    url: url,
     success: function(geojson) {
         // On success add fetched data to the map.
         L.mapbox.featureLayer(geojson).addTo(map);
