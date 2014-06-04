@@ -32,7 +32,7 @@ function load() {
       'Accept': 'application/vnd.github.v3.raw'
     },
     dataType: 'json',
-    url: 'https://raw.github.com/cwlawlis802/oti-global/master/global-oti.geojson',
+    url: 'https://raw.github.com/cwlawlis802/oti-global/gh-pages/global-oti.geojson',
     success: function(geojson) {
         // On success add fetched data to the map.
         L.mapbox.featureLayer(geojson).addTo(map);
