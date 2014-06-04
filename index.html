@@ -35,7 +35,7 @@ function load() {
       'Accept': 'application/vnd.github.v3.raw'
     },
     dataType: 'json',
-    url: 'https://api.github.com/repos/cwlawlis802/oti-global/contents/global-oti-cut-topo.geojson',
+    url: 'https://api.github.com/repos/cwlawlis802/oti-global/contents/global-oti-cut-topo.json',
     success: function(geojson) {
         // On success add fetched data to the map.
         L.mapbox.featureLayer(geojson).addTo(map);
