@@ -25,31 +25,22 @@ var map = L.mapbox.map('map', 'chadlawlis.i60g616l')
     .setView([10, 0], 3);
 
 var statesLayer = L.geoJson(otiCountries,  {
-      //style: getStyle,
-      //onEachFeature: onEachFeature
+      style: getStyle,
+      onEachFeature: onEachFeature
   }).addTo(map);
 
-  // function getStyle(feature) {
-  //     return {
-  //         weight: 2,
-  //         opacity: 0.1,
-  //         color: 'black',
-  //         fillOpacity: 0.7,
-  //         fillColor: getColor(feature.properties.density)
-  //     };
-  // }
+   function getStyle(feature) {
+       return {
+           weight: 2,
+           opacity: 0.1,
+           color: 'black',
+           fillOpacity: 0.7,
+           fillColor: getColor(feature.properties.density)
+       };
+   }
 
   // // get color depending on population density value
-  // function getColor(d) {
-  //     return d > 1000 ? '#8c2d04' :
-  //         d > 500  ? '#cc4c02' :
-  //         d > 200  ? '#ec7014' :
-  //         d > 100  ? '#fe9929' :
-  //         d > 50   ? '#fec44f' :
-  //         d > 20   ? '#fee391' :
-  //         d > 10   ? '#fff7bc' :
-  //         '#ffffe5';
-  // }
+   function getColor(d) {'#fd0'}
 
    function onEachFeature(feature, layer) {
        layer.on({
