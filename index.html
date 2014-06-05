@@ -42,20 +42,6 @@ function load() {
   });
 }
 
-function load() {
-  $.ajax({
-    headers: {
-      'Accept': 'application/vnd.github.v3.raw'
-    },
-    dataType: 'json',
-    url: 'https://api.github.com/repos/cwlawlis802/oti-global/contents/global-oti-closed.geojson',
-    success: function(geojson) {
-        // On success add fetched data to the map.
-        L.mapbox.featureLayer(geojson).addTo(map);
-    }
-  });
-}
-
 //var localLoad = function (url) {
 //	var geojsonLayer = new L.GeoJSON.AJAX(url);
 //	geojsonLayer.addTo(map);
