@@ -18,41 +18,46 @@
 <body>
 
 <div id='map'></div>
-
+<script src='./global-oti.js'></script>
 <script>
 
 var map = L.mapbox.map('map', 'chadlawlis.i60g616l')
     .setView([10, 0], 3);
 
-function load() {
-  // Fetch just the contents of a .geojson file from GitHub by passing
-  // `application/vnd.github.v3.raw` to the Accept header
-  // As with any other AJAX request, this technique is subject to the Same Origin Policy:
-  // http://en.wikipedia.org/wiki/Same_origin_policy the server delivering the request should support CORS.
-  $.ajax({
-    headers: {
-      'Accept': 'application/vnd.github.v3.raw'
-    },
-    dataType: 'json',
-    url: 'https://api.github.com/repos/cwlawlis802/oti-global/contents/global-oti-cut-topo.json',
-    success: function(geojson) {
-        // On success add fetched data to the map.
-        L.mapbox.featureLayer(geojson).addTo(map);
-    }
-  });
-}
+var statesLayer = L.geoJson(otiCountries,  {
+      //style: getStyle,
+      //onEachFeature: onEachFeature
+  }).addTo(map);
 
-//var localLoad = function (url) {
-//	var geojsonLayer = new L.GeoJSON.AJAX(url);
-//	geojsonLayer.addTo(map);
-//}
+  // function getStyle(feature) {
+  //     return {
+  //         weight: 2,
+  //         opacity: 0.1,
+  //         color: 'black',
+  //         fillOpacity: 0.7,
+  //         fillColor: getColor(feature.properties.density)
+  //     };
+  // }
 
-$(load);
+  // // get color depending on population density value
+  // function getColor(d) {
+  //     return d > 1000 ? '#8c2d04' :
+  //         d > 500  ? '#cc4c02' :
+  //         d > 200  ? '#ec7014' :
+  //         d > 100  ? '#fe9929' :
+  //         d > 50   ? '#fec44f' :
+  //         d > 20   ? '#fee391' :
+  //         d > 10   ? '#fff7bc' :
+  //         '#ffffe5';
+  // }
 
-var otiLayer = omnivore.topojson('/oti-global/contents/global-oti-cut-topo.json')
-    .addTo(map);
-
-//localLoad('https://raw.githubusercontent.com/cwlawlis802/oti-global/gh-pages/global-oti.geojson');
+  // function onEachFeature(feature, layer) {
+  //     layer.on({
+  //         mousemove: mousemove,
+  //         mouseout: mouseout,
+  //         click: zoomToFeature
+  //     });
+  // }
 
 </script>
 
