@@ -2,10 +2,8 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<title>A simple map</title>
+<title>OTI Global</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
-<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.1.2/leaflet-omnivore.min.js'></script>
 <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.css' rel='stylesheet' />
 <style>
@@ -13,23 +11,71 @@
   #map { position:absolute; top:0; bottom:0; width:100%; }
 
 .leaflet-popup-content .marker-title {
-  font-size: 16px;
+  font-size: 14px;
+}
+
+.leaflet-popup-content {
+  padding: 10px 10px 10px;
+  margin:0;
+  line-height:inherit;
 }
 
 </style>
 </head>
 <body>
 
+<style>
+.legend label {
+  display:inline-block;
+  font: 12px/20px 'Helvetica Neue',Arial,Helvetica,sans-serif;
+  text-align: left;
+  vertical-align: middle;
+  color:rgba(0,0,0,.75);
+  padding-left:5px;
+  margin-bottom:13px;
+}
+.legend span {
+  display:inline-block;
+  height:20px;
+  width:20px;
+}
+.legend-row {
+  display:block;
+  height:25px;
+}
+.legend-title {
+  display:block;
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:5px;
+}
+</style>
+
+<div id='legend' style='display:none;'>
+  <span class='legend-title'>OTI Program Status</span>
+  <nav class='legend clearfix'>
+    <div class='legend-row'>
+    <span style='background:#0075A2;'></span>
+    <label>Active</label>
+    </div>
+    <div class ='legend-row'>
+    <span style='background:#6CAD5F;'></span>
+    <label>Closed</label>
+    </div>
+</div>
+
 <div id='map'></div>
 <script src='./global-oti.js'></script>
 <script>
 
 var map = L.mapbox.map('map', 'chadlawlis.i60g616l')
-    .setView([10, 0], 3);
+    .setView([10, 0], 2);
+
+map.legendControl.addLegend(document.getElementById('legend').innerHTML);
 
 var popup = new L.Popup({ autoPan: false });
 
-var otiLayer = L.geoJson(otiCountries,  {
+var otiLayer = L.geoJson(otiCountries, {
       style: getStyle,
       onEachFeature: onEachFeature
   }).addTo(map);
@@ -52,25 +98,25 @@ var otiLayer = L.geoJson(otiCountries,  {
   }
 
    function onEachFeature(feature, layer) {
-       layer.on({
+       var popupContent = '<div class="marker-title">' + layer.feature.properties.OTI_name + '</div>' +
+        '<b>Status:</b> ' + layer.feature.properties.status + '<br \/>' +
+        '<a href="' + layer.feature.properties.link + '">' + layer.feature.properties.link + '</a>' + '<br \/>' +
+        layer.feature.properties.summary;
+
+        layer.bindPopup(popupContent);
+
+        layer.on({
            mousemove: mousemove,
            mouseout: mouseout,
            click: zoomToFeature,
-       });
-   }
-
-var closeTooltip;
+        });
+        
+        };     
 
   function mousemove(e) {
       var layer = e.target;
 
       popup.setLatLng(e.latlng);
-      popup.setContent('<div class="marker-title">' + layer.feature.properties.OTI_name + '</div>' + 
-          '<b>' + 'Status: ' + '</b>' + layer.feature.properties.status + '<br>' 
-          + layer.feature.properties.summary + '<br>' + layer.feature.properties.link);
-
-      if (!popup._map) popup.openOn(map);
-      window.clearTimeout(closeTooltip);
 
       // highlight feature
       layer.setStyle({
@@ -78,22 +124,15 @@ var closeTooltip;
           opacity: 0.3,
           fillOpacity: 0.9
       });
-
-      if (!L.Browser.ie && !L.Browser.opera) {
-          layer.bringToFront();
-      }
   }
 
   function mouseout(e) {
       otiLayer.resetStyle(e.target);
-      closeTooltip = window.setTimeout(function() {
-          map.closePopup();
-      }, 100);
   }
 
   function zoomToFeature(e) {
       map.fitBounds(e.target.getBounds());
-  }
+  }   
 
 </script>
 
