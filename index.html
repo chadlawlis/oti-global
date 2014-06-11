@@ -69,7 +69,7 @@
 <script>
 
 var map = L.mapbox.map('map', 'chadlawlis.i60g616l')
-    .setView([10, 0], 2);
+    .setView([10, 0], 3);
 
 map.legendControl.addLegend(document.getElementById('legend').innerHTML);
 
@@ -98,10 +98,15 @@ var otiLayer = L.geoJson(otiCountries, {
   }
 
    function onEachFeature(feature, layer) {
-       var popupContent = '<div class="marker-title">' + layer.feature.properties.OTI_name + '</div>' +
-        '<b>Status:</b> ' + layer.feature.properties.status + '<br \/>' +
-        '<a href="' + layer.feature.properties.link + '">' + layer.feature.properties.link + '</a>' + '<br \/>' +
-        layer.feature.properties.summary;
+       var popupContent = '';
+        popupContent += '<div class="marker-title">' + layer.feature.properties.OTI_name + '</div>'; 
+        popupContent += '<b>' + 'Status: ' + '</b>' + layer.feature.properties.status;
+        if (layer.feature.properties.link !== undefined && layer.feature.properties.link > '') {
+          popupContent += '<br>' + '<a href="' + layer.feature.properties.link + '">' + 'Link to program page' + '</a>';
+        }
+        if (layer.feature.properties.summary !== undefined && layer.feature.properties.summary > '') {
+          popupContent += '<br>' + '<b>Summary: </b>' + layer.feature.properties.summary;
+        }
 
         layer.bindPopup(popupContent);
 
