@@ -73,7 +73,7 @@ var map = L.mapbox.map('map', 'chadlawlis.i60g616l')
 
 map.legendControl.addLegend(document.getElementById('legend').innerHTML);
 
-var popup = new L.Popup({ autoPan: false });
+var popup = new L.Popup({ autoPan: true });
 
 var otiLayer = L.geoJson(otiCountries, {
       style: getStyle,
