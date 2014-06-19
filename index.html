@@ -74,7 +74,7 @@ var map = L.mapbox.map('map', 'chadlawlis.i60g616l')
 
 map.legendControl.addLegend(document.getElementById('legend').innerHTML);
 
-var popup = new L.Popup({ autoPan: true });
+var popup = new L.Popup({ autoPan: false });
 
 var otiLayer = L.geoJson(otiCountries, {
       style: getStyle,
@@ -83,7 +83,7 @@ var otiLayer = L.geoJson(otiCountries, {
 
    function getStyle(feature) {
        return {
-           weight: 1,
+           weight: 2,
            opacity: 0.6,
            color: '#eee',
            fillOpacity: 0.6,
@@ -114,7 +114,6 @@ var otiLayer = L.geoJson(otiCountries, {
         layer.on({
            mousemove: mousemove,
            mouseout: mouseout,
-           click: zoomToFeature,
         });
         
         };     
@@ -136,13 +135,8 @@ var otiLayer = L.geoJson(otiCountries, {
       otiLayer.resetStyle(e.target);
   }
 
-  function zoomToFeature(e) {
-      map.fitBounds(e.target.getBounds());
-  }   
-
 </script>
 
 
 </body>
 </html>
- 
