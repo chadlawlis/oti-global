@@ -95,18 +95,18 @@ var otiLayer = L.geoJson(otiCountries, {
    function getColor(s) {
       return s == 'Active' ? '#0075A2' :
           s  == 'Closed' ? '#6CAD5F' :
-          '#eee';
+          '#000';
   }
 
    function onEachFeature(feature, layer) {
        var popupContent = '';
         popupContent += '<div class="marker-title">' + layer.feature.properties.OTI_name + '</div>'; 
         popupContent += '<b>' + 'Status: ' + '</b>' + layer.feature.properties.status;
-        if (layer.feature.properties.link !== undefined && layer.feature.properties.link > '') {
-          popupContent += '<br>' + '<a href="' + layer.feature.properties.link + '">' + 'Link to program page' + '</a>';
-        }
         if (layer.feature.properties.summary !== undefined && layer.feature.properties.summary > '') {
           popupContent += '<br>' + '<b>Summary: </b>' + layer.feature.properties.summary;
+        }
+        if (layer.feature.properties.link !== undefined && layer.feature.properties.link > '') {
+          popupContent += '<a href="' + layer.feature.properties.link + '">' + ' Learn more' + '</a>';
         }
 
         layer.bindPopup(popupContent);
